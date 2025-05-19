@@ -2,6 +2,7 @@ package streamapi;
 
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /** Starter for the stream api task. */
 public class Main {
@@ -15,6 +16,14 @@ public class Main {
         // Task I: Students
 
         // Task II: Set of ECTS of all IFM students
+        System.out.println(
+                ifmCps(
+                        List.of(
+                                new Student("A", 35, Enrollment.IFM),
+                                new Student("B", 35, Enrollment.IFM),
+                                new Student("C", 60, Enrollment.ELT),
+                                new Student("D", 45, Enrollment.ARCH),
+                                new Student("E", 80, Enrollment.IFM))));
 
         // Task III: Random
 
@@ -44,8 +53,17 @@ public class Main {
      * @return Set of credit points of all IFM students
      */
     public static Set<Integer> ifmCps(List<Student> studentList) {
-        // TODO
-        throw new UnsupportedOperationException();
+
+        // ein set / menge ist eine collection von elementen, wo bei jedes element nur ein mal vorkommt
+        // diese methode gibt zurück, welche verschiedenen cps die studenten haben
+        // studentList.Where(x => x.isFIM).Select(x => x.cps).ToHashSet()
+
+        return studentList.stream()
+//            .filter(x -> x.isIFM())
+//            .map(x -> x.cps())
+            .filter(Student::isIFM)
+            .map(Student::cps)
+            .collect(Collectors.toSet());
     }
 
     /**
