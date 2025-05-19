@@ -39,13 +39,14 @@ public class Main {
      * @return Sum of credit points of all students
      */
     public static Integer students(List<Student> studentList) {
-        // TODO
-        Integer sum = 0;
-        for (Student s : studentList) {
-            sum += s.cps();
-        }
 
-        return sum;
+//        return studentList.sum(x => x.cps); //  FFS this is what it should look like...
+
+        return studentList
+            .stream()
+//            .mapToInt(x -> x.cps())
+            .mapToInt(Student::cps)
+            .sum();
     }
 
     /**
